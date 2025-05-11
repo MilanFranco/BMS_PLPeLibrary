@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
 
-    implementation 'com.google.firebase:firebase-auth:22.3.0'
+    implementation("com.google.firebase:firebase-auth:22.3.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
