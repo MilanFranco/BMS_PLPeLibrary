@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440813312243",
+    "project_id": "plpelib",
+    "storage_bucket": "plpelib.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440813312243:android:a4663d5ede4f8f4f8e3f86",
+        "android_client_info": {
+          "package_name": "com.example.bms_plpelibrary"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC70qYQv8xDB_5jb680f0I3gnCYi6_-3nw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

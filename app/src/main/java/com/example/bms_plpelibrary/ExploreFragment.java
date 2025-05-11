@@ -209,4 +209,4 @@ public class ExploreFragment extends Fragment {
             emptyStateTextView.setVisibility(View.VISIBLE);
         });
     }
-}}
+}

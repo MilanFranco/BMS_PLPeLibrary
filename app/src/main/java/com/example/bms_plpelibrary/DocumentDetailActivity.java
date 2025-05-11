@@ -28,10 +28,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.plp.elibrary.R;
-import com.plp.elibrary.models.Document;
-import com.plp.elibrary.models.User;
-import com.plp.elibrary.utils.Constants;
+import com.example.bms_plpelibrary.R;
+import com.example.bms_plpelibrary.models.Documents;
+import com.example.bms_plpelibrary.models.User;
+import com.example.bms_plpelibrary.utils.ConstanDts;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -52,7 +52,7 @@ public class DocumentDetailActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
-    private Document currentDocument;
+    private Documents currentDocument;
     private String documentId;
     private boolean isBookmarked = false;
     private boolean isAdmin = false;
