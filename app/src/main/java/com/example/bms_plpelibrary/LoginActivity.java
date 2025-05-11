@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.plp.elibrary.R;
-import com.plp.elibrary.utils.ValidationUtils;
+import com.example.bms_plpelibrary.R;
+import com.example.bms_plpelibrary.utils.ValidationUtils;
 
 public class LoginActivity extends AppCompatActivity {
 
