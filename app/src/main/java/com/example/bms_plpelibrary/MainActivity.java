@@ -23,7 +23,7 @@ import com.plp.elibrary.fragments.HomeFragment;
 import com.plp.elibrary.fragments.ProfileFragment;
 import com.plp.elibrary.fragments.UploadFragment;
 import com.plp.elibrary.fragments.VerifiedEbooksFragment;
-import com.plp.elibrary.models.User;
+import com.example.bms_plpelibrary.models;
 import com.plp.elibrary.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
