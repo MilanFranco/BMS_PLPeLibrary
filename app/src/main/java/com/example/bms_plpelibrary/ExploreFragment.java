@@ -29,10 +29,10 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.plp.elibrary.R;
-import com.plp.elibrary.adapters.DocumentAdapter;
-import com.plp.elibrary.models.Document;
-import com.plp.elibrary.utils.Constants;
+import com.example.bms_plpelibrary.R;
+import com.example.bms_plpelibrary.adapters.DocumentAdapter;
+import com.example.bms_plpelibrary.models.Documents;
+import com.example.bms_plpelibrary.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
