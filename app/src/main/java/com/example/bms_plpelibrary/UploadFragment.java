@@ -27,9 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.plp.elibrary.R;
-import com.plp.elibrary.models.Document;
-import com.plp.elibrary.models.User;
+import com.example.bms_plpelibrary.R;
+import com.example.bms_plpelibrary.models.Documents;
+import com.example.bms_plpelibrary.models.User;
 import com.plp.elibrary.utils.Constants;
 import com.plp.elibrary.utils.FileUtils;
 

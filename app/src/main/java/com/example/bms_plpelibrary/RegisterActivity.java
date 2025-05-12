@@ -9,17 +9,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.bms_plpelibrary.models.User;
 import com.example.bms_plpelibrary.utils.ValidationUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -72,6 +73,60 @@ public class RegisterActivity extends AppCompatActivity {
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
         // Validate inputs
+        if (!validateInputs(name, email, password, confirmPassword)) {
+            return;
+        }
+
+        // Show progress bar
+        progressBar.setVisibility(View.VISIBLE);
+
+        // Create user with Firebase Auth
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Safely get current user
+                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            // Create user object with confirmed userId
+                            String userId = firebaseUser.getUid();
+                            User user = new User(userId, name, email);
+
+                            // Save user details to Firestore
+                            firestore.collection("users").document(userId)
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            progressBar.setVisibility(View.GONE);
+                                            showSuccessAndNavigate();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressBar.setVisibility(View.GONE);
+                                            // If Firestore save fails, sign out the user
+                                            firebaseAuth.signOut();
+                                            Toast.makeText(RegisterActivity.this,
+                                                    "Failed to create user profile: " + e.getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        } else {
+                            // Unexpected: successful task but no user
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(RegisterActivity.this,
+                                    "Unexpected error during registration",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        handleRegistrationError(task.getException());
+                    }
+                });
+    }
+
+    private boolean validateInputs(String name, String email, String password, String confirmPassword) {
         boolean isValid = true;
 
         if (name.isEmpty()) {
@@ -102,53 +157,29 @@ public class RegisterActivity extends AppCompatActivity {
             confirmPasswordLayout.setError(null);
         }
 
-        if (!isValid) {
-            return;
+        return isValid;
+    }
+
+    private void handleRegistrationError(Exception exception) {
+        if (exception instanceof FirebaseAuthUserCollisionException) {
+            Toast.makeText(RegisterActivity.this,
+                    "Email already in use",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(RegisterActivity.this,
+                    "Registration failed: " + exception.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         }
+    }
 
-        // Show progress bar
-        progressBar.setVisibility(View.VISIBLE);
+    private void showSuccessAndNavigate() {
+        Toast.makeText(RegisterActivity.this,
+                "Registration successful!", Toast.LENGTH_SHORT).show();
 
-        // Create user with Firebase Auth
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // User created successfully, save additional user data
-                        String userId = firebaseAuth.getCurrentUser().getUid();
-                        User user = new User(userId, name, email);
-
-                        // Save user details to Firestore
-                        firestore.collection("users").document(userId)
-                                .set(user)
-                                .addOnSuccessListener(aVoid -> {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(RegisterActivity.this,
-                                            "Registration successful!", Toast.LENGTH_SHORT).show();
-
-                                    // Navigate to main activity
-                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                })
-                                .addOnFailureListener(e -> {
-                                    progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(RegisterActivity.this,
-                                            "Failed to create user profile: " + e.getMessage(),
-                                            Toast.LENGTH_SHORT).show();
-                                });
-                    } else {
-                        progressBar.setVisibility(View.GONE);
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(RegisterActivity.this,
-                                    "Email already in use",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegisterActivity.this,
-                                    "Registration failed: " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        // Navigate to main activity
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

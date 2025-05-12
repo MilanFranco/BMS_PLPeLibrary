@@ -18,12 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.plp.elibrary.fragments.AdminFragment;
 import com.plp.elibrary.fragments.BookmarksFragment;
-import com.plp.elibrary.fragments.ExploreFragment;
-import com.plp.elibrary.fragments.HomeFragment;
+import com.example.bms_plpelibrary.fragments.ExploreFragment;
+import com.example.bms_plpelibrary.fragments.HomeFragment;
 import com.plp.elibrary.fragments.ProfileFragment;
 import com.plp.elibrary.fragments.UploadFragment;
 import com.plp.elibrary.fragments.VerifiedEbooksFragment;
-import com.example.bms_plpelibrary.models;
+import com.example.bms_plpelibrary.models.User;
 import com.plp.elibrary.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

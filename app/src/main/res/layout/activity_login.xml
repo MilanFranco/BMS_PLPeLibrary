@@ -82,11 +82,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:drawableStart="@drawable/lock"
+            android:drawableStart="@drawable/iclock"
             android:drawablePadding="16dp"
             android:drawableTint="#AAAAAA"
             android:paddingStart="12dp"
-            android:paddingEnd="12dp" />
+            android:paddingEnd="12dp"
+            android:drawableEnd="@drawable/visibility"
+            android:drawableEndMode="always" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

@@ -16,7 +16,8 @@ import com.bumptech.glide.Glide;
 import com.example.bms_plpelibrary.models.Documents;
 import com.example.bms_plpelibrary.R;
 
-import com.plp.elibrary.activities.DocumentDetailActivity;
+// Changed import to use the activity from the same package
+import com.example.bms_plpelibrary.activities.DocumentDetailActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -72,7 +73,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
 
         // Set click listener
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DocumentDetailActivity.class);
+            Intent intent = new Intent(context, com.example.bms_plpelibrary.DocumentDetailActivity.class);
             intent.putExtra("document_id", document.getDocumentId());
             context.startActivity(intent);
         });

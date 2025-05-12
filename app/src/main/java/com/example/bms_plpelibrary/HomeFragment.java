@@ -17,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.example.bms_plpelibrary.R;
-import com.example.bms_plpelibrary.adapters.DocumentAdapter;
-import com.plp.elibrary.models.Document;
+import com.example.bms_plpelibrary.DocumentAdapter;
+import com.example.bms_plpelibrary.models.Documents;
 import com.plp.elibrary.utils.Constants;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
 
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        List<Document> documents = queryDocumentSnapshots.toObjects(Document.class);
+                        List<Documents> documents = queryDocumentSnapshots.toObjects(Document.class);
                         recentlyAddedAdapter.updateData(documents);
                     }
                 })
@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        List<Document> documents = queryDocumentSnapshots.toObjects(Document.class);
+                        List<Documents> documents = queryDocumentSnapshots.toObjects(Documents.class);
                         popularAdapter.updateData(documents);
                     }
                 })
@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        List<Document> documents = queryDocumentSnapshots.toObjects(Document.class);
+                        List<Documents> documents = queryDocumentSnapshots.toObjects(Documents.class);
                         verifiedEbooksAdapter.updateData(documents);
                     }
                 })

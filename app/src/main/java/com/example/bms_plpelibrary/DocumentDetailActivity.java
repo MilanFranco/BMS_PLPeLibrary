@@ -1,4 +1,4 @@
-package com.plp.elibrary.activities;
+package com.example.bms_plpelibrary;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bms_plpelibrary.models.Documents;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.example.bms_plpelibrary.R;
 import com.example.bms_plpelibrary.models.Documents;
 import com.example.bms_plpelibrary.models.User;
+import com.plp.elibrary.utils.Constants;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -139,7 +141,7 @@ public class DocumentDetailActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
 
                     if (documentSnapshot.exists()) {
-                        currentDocument = documentSnapshot.toObject(Document.class);
+                        currentDocument = documentSnapshot.toObject(Documents.class);
                         displayDocumentDetails();
                     } else {
                         Toast.makeText(this, "Document not found", Toast.LENGTH_SHORT).show();
